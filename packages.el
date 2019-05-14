@@ -35,33 +35,51 @@
     lsp-ui
     scala-mode
     sbt-mode
+
+    company-lsp
+    flycheck
     )
-  "The list of Lisp packages required by the escala layer.
+)
 
-Each entry is either:
+(defun escala/init-scala-mode ()
+  (use-package scala-mode
+    :defer t
+    ;; Configure file extensions
+    :mode "\\.s\\(cala\\|bt\\)$"))
 
-1. A symbol, which is interpreted as a package to be installed, or
+(defun escala/init-sbt-mode ()
+  (use-package sbt-mode
+    :defer t
+    :config
+    ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
+    ;; allows using SPACE when in the minibuffer
+    (substitute-key-definition
+     'minibuffer-complete-word
+     'self-insert-command
+     minibuffer-local-completion-map)
+    :init (spacemacs/set-leader-keys-for-major-mode 'scala-mode
+            "b." 'sbt-hydra
+            "bb" 'sbt-command)))
 
-2. A list of the form (PACKAGE KEYS...), where PACKAGE is the
-    name of the package to be installed or loaded, and KEYS are
-    any number of keyword-value-pairs.
+(defun escala/init-lsp-scala ()
+  (use-package lsp-scala
+    :after scala-mode
+    :demand t
+    ;; Optional - enable lsp-scala automatically in scala files
+    :hook (scala-mode . lsp)))
 
-    The following keys are accepted:
+(defun escala/pre-init-lsp-ui ()
+  (use-package lsp-ui
+    :defer t))
 
-    - :excluded (t or nil): Prevent the package from being loaded
-      if value is non-nil
+(defun escala/pre-init-company-lsp ()
+  (use-package company-lsp
+    :defer t))
 
-    - :location: Specify a custom installation location.
-      The following values are legal:
+(defun escala/post-init-flycheck ()
+  (global-flycheck-mode))
 
-      - The symbol `elpa' (default) means PACKAGE will be
-        installed using the Emacs package manager.
-
-      - The symbol `local' directs Spacemacs to load the file at
-        `./local/PACKAGE/PACKAGE.el'
-
-      - A list beginning with the symbol `recipe' is a melpa
-        recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
-
+(defun escala/post-init-lsp-mode ()
+  (setq lsp-prefer-flymake nil))
 
 ;;; packages.el ends here
