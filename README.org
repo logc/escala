@@ -20,6 +20,8 @@
 * Description
 This layer adds support for Scala development in Emacs, via [[https://scalameta.org/metals/][Metals]] and [[https://github.com/rossabaker/lsp-scala][lsp-scala]].
 
+It does not depend on [[https://ensime.github.io][Ensime]], in contrast to the [[http://spacemacs.org/layers/+lang/scala/README.html][current official Scala layer]].
+
 ** Features:
   - Documentation for function at point
   - Type hints for value at point
