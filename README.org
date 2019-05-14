@@ -11,30 +11,40 @@
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
+  - [[#for-the-time-being][For the time being]]
+  - [[#once-it-is-an-official-layer][Once it is an official layer]]
 - [[#key-bindings][Key bindings]]
+  - [[#sbt-mode][SBT mode]]
+  - [[#lsp-mode][LSP mode]]
 
 * Description
-This layer adds support for something.
+This layer adds support for Scala development in Emacs, via [[https://scalameta.org/metals/][Metals]] and [[https://github.com/rossabaker/lsp-scala][lsp-scala]].
 
 ** Features:
-  - Autocomplete
-  - Lint
-  - Refactor
-  - ...
+  - Documentation for function at point
+  - Type hints for value at point
+  - SBT integration with a hydra
 
 * Install
+** For the time being
+Clone [[https://github.com/logc/escala][this repository]] into your =.emacs.d/private= folder (or wherever your
+private layers should go), and then add =escala= to
+=dotspacemacs-configuration-layers= in your =/.spacemacs=
+
+** Once it is an official layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =escala= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Key bindings
 
-| Key Binding | Description    |
-|-------------+----------------|
-| ~SPC x x x~ | Does thing01   |
+** SBT mode
+   
+| Key Binding | Description       |
+|-------------+-------------------|
+| ~SPC m b b~ | Run ~sbt~ command |
+| ~SPC m b .~ | Start ~sbt~ hydra |
 
-# Use GitHub URLs if you wish to link a Spacemacs documentation file or its heading.
-# Examples:
-# [[https://github.com/syl20bnr/spacemacs/blob/master/doc/VIMUSERS.org#sessions]]
-# [[https://github.com/syl20bnr/spacemacs/blob/master/layers/%2Bfun/emoji/README.org][Link to Emoji layer README.org]]
-# If space-doc-mode is enabled, Spacemacs will open a local copy of the linked file.
+** LSP mode
+
+Please check the [[http://develop.spacemacs.org/layers/+tools/lsp/README.html#key-bindings][lsp-mode documentation]].
