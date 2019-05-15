@@ -33,6 +33,30 @@ Clone [[https://github.com/logc/escala][this repository]] into your =.emacs.d/pr
 private layers should go), and then add =escala= to
 =dotspacemacs-configuration-layers= in your =/.spacemacs=
 
+You also need to install the Metals LSP server. Up-to-date instructions can be
+found on their website, linked further up. As of May 2019, the installation can
+be summarized as:
+
+#+begin_src console
+# Make sure to use coursier v1.1.0-M9 or newer.
+curl -L -o coursier https://git.io/coursier
+chmod +x coursier
+./coursier bootstrap \
+  --java-opt -Xss4m \
+  --java-opt -Xms100m \
+  --java-opt -Dmetals.client=emacs \
+  org.scalameta:metals_2.12:0.5.2 \
+  -r bintray:scalacenter/releases \
+  -r sonatype:snapshots \
+  -o /usr/local/bin/metals-emacs -f
+#+end_src
+
+Also, please note that the Metals server, when started from the Spacemacs LSP
+layer, needs to find Java 8. You can set a local version of Java using [[http://www.jenv.be/][jenv]], or
+setting =JAVA_HOME= within the =.spacemacs.env= file. **This will also cause
+=sbt= to work with Java 8** when using this layer. We are thinking of a
+workaround ...
+
 ** Once it is an official layer
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =escala= to the existing =dotspacemacs-configuration-layers= list in this
