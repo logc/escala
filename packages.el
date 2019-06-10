@@ -31,7 +31,7 @@
 
 (defconst escala-packages
   '(
-    (lsp-scala :require lsp-mode)
+    lsp-mode
     lsp-ui
     scala-mode
     sbt-mode
@@ -60,13 +60,6 @@
     :init (spacemacs/set-leader-keys-for-major-mode 'scala-mode
             "b." 'sbt-hydra
             "bb" 'sbt-command)))
-
-(defun escala/init-lsp-scala ()
-  (use-package lsp-scala
-    :after scala-mode
-    :demand t
-    ;; Optional - enable lsp-scala automatically in scala files
-    :hook (scala-mode . lsp)))
 
 (defun escala/pre-init-lsp-ui ()
   (use-package lsp-ui
